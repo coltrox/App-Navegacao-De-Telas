@@ -28,7 +28,7 @@ npm install
 ### 3. Inicie o app com Expo
 
 ```bash
-npx expo start
+npx expo start --tunnel
 ```
 
 ---
