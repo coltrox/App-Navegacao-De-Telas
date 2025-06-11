@@ -1,49 +1,71 @@
-✅ Funcionalidades
-Tela de Login com validação simples (admin / 1234)
+# 📱 APP DE NAVEGAÇÃO DE TELAS
 
-Armazenamento de sessão com AsyncStorage
+## ✅ Funcionalidades
 
-Menu lateral (Drawer) com botão de logout
+* Tela de Login com validação simples (`admin` / `1234`)
+* Armazenamento de sessão com `AsyncStorage`
+* Menu lateral (Drawer) com botão de logout
+* Navegação protegida por autenticação
+* Estilização com `StyleSheet` e `expo-linear-gradient`
 
-Navegação protegida por autenticação
+---
 
-Estilização com StyleSheet e expo-linear-gradient
+## 🚀 Como rodar o projeto
 
-🚀 Como rodar o projeto
-1. Clone o repositório
-bash
-Copiar
-Editar
+### 1. Clone o repositório
+
+```bash
 git clone https://github.com/seu-usuario/MeuAppNavegacao_PedroColtro.git
 cd MeuAppNavegacao_PedroColtro
-2. Instale as dependências
-bash
-Copiar
-Editar
+```
+
+### 2. Instale as dependências
+
+```bash
 npm install
-3. Inicie o app com Expo
-bash
-Copiar
-Editar
+```
+
+### 3. Inicie o app com Expo
+
+```bash
 npx expo start
-🔐 Credenciais de Acesso
-Login: admin
+```
 
-Senha: 1234
+---
 
-📦 Dependências principais
-expo
+## 🔐 Credenciais de Acesso
 
-@react-navigation/native
+* **Login:** `admin`
+* **Senha:** `1234`
 
-@react-navigation/drawer
+---
 
-@react-navigation/stack
+## 📦 Dependências principais
 
-react-native-gesture-handler
+* `expo`
+* `@react-navigation/native`
+* `@react-navigation/drawer`
+* `@react-navigation/stack`
+* `react-native-gesture-handler`
+* `@react-native-async-storage/async-storage`
+* `expo-linear-gradient`
 
-@react-native-async-storage/async-storage
+> Todas essas dependências serão instaladas automaticamente com `npm install` se o `package.json` estiver configurado corretamente.
 
-expo-linear-gradient
+---
 
-Todas essas dependências serão instaladas automaticamente com npm install se o package.json estiver configurado corretamente.
+## 📁 Estrutura do Projeto
+
+```
+MeuAppNavegacao_PedroColtro/
+│
+├── App.js                    # Lógica de navegação (Stack e Drawer)
+├── index.js                  # Ponto de entrada do app com registerRootComponent
+├── src/
+│   └── screens/
+│       ├── LoginScreen.js
+│       ├── HomeScreen.js
+│       ├── DetailsScreen.js
+│       ├── ProfileScreen.js
+│       └── LogoutScreen.js
+```
