@@ -15,7 +15,6 @@ import ProfileScreen from './src/screens/ProfileScreen';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-// 👉 Custom drawer com botão de logout no final
 function CustomDrawerContent(props) {
   const handleLogout = async () => {
     await AsyncStorage.removeItem('logado');
@@ -32,7 +31,6 @@ function CustomDrawerContent(props) {
   );
 }
 
-// Menu lateral com navegação
 function DrawerRoutes() {
   return (
     <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
@@ -43,7 +41,6 @@ function DrawerRoutes() {
   );
 }
 
-// Navegação principal
 export default function App() {
   return (
     <NavigationContainer>
