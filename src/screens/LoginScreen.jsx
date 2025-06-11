@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Dimensions} from 'react-native';
+  View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Dimensions, Switch
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
-
 
 const windowWidth = Dimensions.get('window').width;
 
 export default function LoginScreen({ navigation }) {
   const [login, setLogin] = useState('');
   const [senha, setSenha] = useState('');
+  const [stayLogged, setStayLogged] = useState(false);
 
   useEffect(() => {
     const verificarLogin = async () => {
@@ -23,7 +24,11 @@ export default function LoginScreen({ navigation }) {
 
   const handleLogin = async () => {
     if (login === 'admin' && senha === '1234') {
-      await AsyncStorage.setItem('logado', 'true');
+      if (stayLogged) {
+        await AsyncStorage.setItem('logado', 'true');
+      } else {
+        await AsyncStorage.removeItem('logado');
+      }
       navigation.replace('Drawer');
     } else {
       Alert.alert('Erro', 'Login ou senha incorretos!');
@@ -50,6 +55,14 @@ export default function LoginScreen({ navigation }) {
         secureTextEntry
         style={styles.input}
       />
+
+      <View style={styles.rememberContainer}>
+        <Text style={styles.rememberText}>Continuar conectado</Text>
+        <Switch
+          value={stayLogged}
+          onValueChange={setStayLogged}
+        />
+      </View>
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
@@ -79,6 +92,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontSize: 16,
     elevation: 2,
+  },
+  rememberContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+    width: windowWidth * 0.75,
+    justifyContent: 'space-between',
+  },
+  rememberText: {
+    color: '#fff',
+    fontSize: 16,
   },
   button: {
     width: windowWidth * 0.5,
