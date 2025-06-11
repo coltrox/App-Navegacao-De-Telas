@@ -3,6 +3,7 @@
 ## ✅ Funcionalidades
 
 * Tela de Login com validação simples (`admin` / `1234`)
+* **Opção "Continuar conectado" com `Switch`**
 * Armazenamento de sessão com `AsyncStorage`
 * Menu lateral (Drawer) com botão de logout
 * Navegação protegida por autenticação
