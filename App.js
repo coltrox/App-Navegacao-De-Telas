@@ -15,6 +15,7 @@ const Drawer = createDrawerNavigator();
 function DrawerRoutes({ onLogout, initialRoute }) {
   const navigationRef = useRef();
 
+  //VAI VER A MUDANA DE TELA E VAI SALVAR A ULTIMA TELA VISITADA
   useEffect(() => {
     const unsubscribe = navigationRef.current?.addListener('state', async (e) => {
       try {
@@ -30,6 +31,7 @@ function DrawerRoutes({ onLogout, initialRoute }) {
   }, []);
 
   return (
+     // navegação drawer, independente da navegação principal
     <NavigationContainer ref={navigationRef} independent={true}>
       <Drawer.Navigator
         initialRouteName={initialRoute}

@@ -23,7 +23,7 @@ export default function LoginScreen({ onLogin }) {
     if (login === 'admin' && senha === '1234') {
       if (stayLogged) {
         await AsyncStorage.setItem('logado', 'true');
-        await AsyncStorage.setItem('lastRoute', 'Home');
+        await AsyncStorage.setItem('lastRoute', 'Home'); // ultima tela apos o login é home
       } else {
         await AsyncStorage.multiRemove(['logado', 'lastRoute']);
       }
