@@ -1,35 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Dimensions, Switch
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Dimensions,
+  Switch,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const windowWidth = Dimensions.get('window').width;
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ onLogin }) {
   const [login, setLogin] = useState('');
   const [senha, setSenha] = useState('');
   const [stayLogged, setStayLogged] = useState(false);
-
-  useEffect(() => {
-    const verificarLogin = async () => {
-      const logado = await AsyncStorage.getItem('logado');
-      if (logado === 'true') {
-        navigation.replace('Drawer');
-      }
-    };
-    verificarLogin();
-  }, []);
 
   const handleLogin = async () => {
     if (login === 'admin' && senha === '1234') {
       if (stayLogged) {
         await AsyncStorage.setItem('logado', 'true');
+        await AsyncStorage.setItem('lastRoute', 'Home');
       } else {
-        await AsyncStorage.removeItem('logado');
+        await AsyncStorage.multiRemove(['logado', 'lastRoute']);
       }
-      navigation.replace('Drawer');
+      onLogin();
     } else {
       Alert.alert('Erro', 'Login ou senha incorretos!');
     }
@@ -45,6 +43,7 @@ export default function LoginScreen({ navigation }) {
         value={login}
         onChangeText={setLogin}
         style={styles.input}
+        autoCapitalize="none"
       />
 
       <TextInput
@@ -58,10 +57,7 @@ export default function LoginScreen({ navigation }) {
 
       <View style={styles.rememberContainer}>
         <Text style={styles.rememberText}>Continuar conectado</Text>
-        <Switch
-          value={stayLogged}
-          onValueChange={setStayLogged}
-        />
+        <Switch value={stayLogged} onValueChange={setStayLogged} />
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
