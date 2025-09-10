@@ -87,4 +87,3 @@ MeuAppNavegacao_PedroColtro/
 │       ├── ProfileScreen.js  # Tela de perfil com SectionList
 │       └── LogoutScreen.js   # Encerramento de sessão
 ```
-adicione também no **README** um trecho de código de exemplo mostrando o `FlatList` e o `SectionList` (só pra quem abrir o repositório entender rápido o que foi feito)?
