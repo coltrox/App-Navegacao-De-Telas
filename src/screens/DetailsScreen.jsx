@@ -1,13 +1,22 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
-const windowWidth = Dimensions.get('window').width;
+const THEME = {
+  BACKGROUND: '#12121F',
+  PRIMARY: '#3B82F6',
+  TEXT_PRIMARY: '#FFFFFF',
+  TEXT_SECONDARY: '#A0A0A0',
+};
 
 export default function DetailsScreen() {
   return (
     <View style={styles.container}>
-    <Text style={styles.title}>Bem-vindo à detalhes!</Text>
-  </View>
+      <Feather name="lock" size={48} color={THEME.TEXT_SECONDARY} />
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Ver Conteúdo Exclusivo</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -16,11 +25,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0f8ff',
+    backgroundColor: THEME.BACKGROUND,
+    padding: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+  button: {
+    width: '100%',
+    height: 50,
+    backgroundColor: THEME.PRIMARY,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  buttonText: {
+    color: THEME.TEXT_PRIMARY,
+    fontSize: 16,
+    fontWeight: '600',
   },
 });

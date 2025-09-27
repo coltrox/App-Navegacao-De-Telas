@@ -6,13 +6,20 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  Dimensions,
   Switch,
+  Platform,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { LinearGradient } from 'expo-linear-gradient';
+import { Feather } from '@expo/vector-icons'; // Importando ícones
 
-const windowWidth = Dimensions.get('window').width;
+const THEME = {
+  BACKGROUND: '#12121F',
+  CARD: '#1E1E2F',
+  PRIMARY: '#3B82F6',
+  TEXT_PRIMARY: '#FFFFFF',
+  TEXT_SECONDARY: '#A0A0A0',
+  INPUT: '#2A2A3D',
+};
 
 export default function LoginScreen({ onLogin }) {
   const [login, setLogin] = useState('');
@@ -20,10 +27,10 @@ export default function LoginScreen({ onLogin }) {
   const [stayLogged, setStayLogged] = useState(false);
 
   const handleLogin = async () => {
-    if (login === 'admin' && senha === '1234') {
+    if (login.toLowerCase() === 'admin' && senha === '1234') {
       if (stayLogged) {
         await AsyncStorage.setItem('logado', 'true');
-        await AsyncStorage.setItem('lastRoute', 'Home'); // ultima tela apos o login é home
+        await AsyncStorage.setItem('lastRoute', 'Home');
       } else {
         await AsyncStorage.multiRemove(['logado', 'lastRoute']);
       }
@@ -34,12 +41,14 @@ export default function LoginScreen({ onLogin }) {
   };
 
   return (
-    <LinearGradient colors={['#a18cd1', '#fbc2eb']} style={styles.container}>
+    <View style={styles.container}>
+      <Feather name="shield" size={64} color={THEME.PRIMARY} />
       <Text style={styles.title}>Bem-vindo</Text>
+      <Text style={styles.subtitle}>Acesse para continuar</Text>
 
       <TextInput
         placeholder="Login"
-        placeholderTextColor="#666"
+        placeholderTextColor={THEME.TEXT_SECONDARY}
         value={login}
         onChangeText={setLogin}
         style={styles.input}
@@ -48,7 +57,7 @@ export default function LoginScreen({ onLogin }) {
 
       <TextInput
         placeholder="Senha"
-        placeholderTextColor="#666"
+        placeholderTextColor={THEME.TEXT_SECONDARY}
         value={senha}
         onChangeText={setSenha}
         secureTextEntry
@@ -57,13 +66,18 @@ export default function LoginScreen({ onLogin }) {
 
       <View style={styles.rememberContainer}>
         <Text style={styles.rememberText}>Continuar conectado</Text>
-        <Switch value={stayLogged} onValueChange={setStayLogged} />
+        <Switch
+          value={stayLogged}
+          onValueChange={setStayLogged}
+          trackColor={{ false: '#767577', true: THEME.PRIMARY }}
+          thumbColor={stayLogged ? '#f4f3f4' : '#f4f3f4'}
+        />
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
-    </LinearGradient>
+    </View>
   );
 }
 
@@ -72,45 +86,55 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: THEME.BACKGROUND,
+    padding: 20,
   },
   title: {
     fontSize: 32,
-    fontWeight: '700',
-    color: '#fff',
+    fontWeight: 'bold',
+    color: THEME.TEXT_PRIMARY,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: THEME.TEXT_SECONDARY,
     marginBottom: 40,
   },
   input: {
-    width: windowWidth * 0.75,
+    width: '100%',
     height: 50,
-    backgroundColor: '#fff',
-    borderRadius: 25,
+    backgroundColor: THEME.INPUT,
+    borderRadius: 12,
     paddingHorizontal: 20,
-    marginBottom: 20,
+    marginBottom: 15,
     fontSize: 16,
-    elevation: 2,
+    color: THEME.TEXT_PRIMARY,
+    borderWidth: 1,
+    borderColor: '#3A3A4A',
   },
   rememberContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
-    width: windowWidth * 0.75,
+    marginBottom: 30,
+    width: '100%',
     justifyContent: 'space-between',
   },
   rememberText: {
-    color: '#fff',
+    color: THEME.TEXT_SECONDARY,
     fontSize: 16,
   },
   button: {
-    width: windowWidth * 0.5,
+    width: '100%',
     height: 50,
-    backgroundColor: '#6a11cb',
-    borderRadius: 25,
+    backgroundColor: THEME.PRIMARY,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 4,
   },
   buttonText: {
-    color: '#fff',
+    color: THEME.TEXT_PRIMARY,
     fontSize: 18,
     fontWeight: '600',
   },
